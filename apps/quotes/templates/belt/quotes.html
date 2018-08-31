@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Quotes</title>
+	<style type="text/css">
+		#wapper{
+			margin: 20px;
+			padding: 20px;
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			border: 1px solid black;
+		}
+		.button {
+		    background-color: #4CAF50;
+		    border: none;
+		    color: white;
+		    width: 120px;
+		    padding: 8px ;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 15px;
+		    margin: 3px;
+		    cursor: pointer;
+		}
+		label, input{
+			display: block;
+		}
+		label{
+			margin-bottom: 20px;
+		}
+		form{
+			margin-top:30px ;
+		}
+		textarea{
+			padding: 20px;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+	<body id="wapper">
+		{% for message in messages %}
+			<li>{{ message }}</li>
+		{% endfor %}
+		<div>
+			<h2>Welcome {{ welcome_user.name }}!</h2>
+			<a href="/logout">Logout</a>
+			<div>
+				<h2>Quotable Quotes:</h2>
+				{% for quote in all_quotes %}
+					<p><i>"{{ quote.content }}"</i></p>
+					<p>Posted By : <a href="/users/{{quote.uploader.id}}">{{ quote.uploader.name }}</a></p>
+					<a class="button" href="addfq/{{quote.id}}">Add to list</a>
+				{% endfor %}
+			</div>
+			<div>
+
+			</div>
+			<div>
+				<h2>Your Favourites</h2>
+				<form action="/removefq" method="POST">
+					{% csrf_token %}
+					<p>
+						{% for quote in fav_quotes %}
+						<p>{{ quote.author }} : {{ quote.content }}</p>
+						<a class="button" href="removefq/{{quote.id}}">Remove</a>
+						{% endfor %}
+					</p>
+					</div>
+				</form>
+			</div>
+			<h2>Contribute a Quote:</h2>
+			<form action="/allquote" method="POST">
+				{% csrf_token %}
+				<label>Quoted By:<input type="text" name="quote_author"></label>
+				<label>Message:<textarea name="message" row="20" cols="30"></textarea></label>
+				<input class ="button" type="submit" name="submit" value="Submit">
+			</form>
+		</div>
+	</body>
+</html>

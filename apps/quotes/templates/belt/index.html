@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Welcome Page</title>
+	<style type="text/css">
+		#wapper{
+			margin: 20px;
+			padding: 20px;
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			border: 1px solid black;
+		}
+		#button {
+		    background-color: #4CAF50;
+		    border: none;
+		    color: white;
+		    width: 100px;
+		    padding: 8px ;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 15px;
+		    margin: 3px;
+		    cursor: pointer;
+	}
+	label, input{
+			display: block;
+		}
+		label{
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+	<body id="wapper">
+		{% for message in messages %}
+			<li>{{ message }}</li>
+		{% endfor %}
+		<h3>Login</h3>
+		<form action="/logval" method="POST">
+			{% csrf_token %}
+			<label>Email : <input type="email" name="email"></label>
+			<label>Password : <input type="password" name="password"></label>
+			<input id="button" type="submit" name="submit" value="Login">
+		</form>
+		<h3>Registration</h3>
+		<form action="/regval" method="POST">
+			{% csrf_token %}
+			<label>Name : <input type="text" name="name"></label>
+			<label>Alias : <input type="text" name="alias"></label>
+			<label>Email : <input type="email" name="email"></label>
+			<label>Password : <input type="password" name="password"></label>
+			<h6>*Password should be atleast 8 characters</h6>
+			<label>Confirm Password : <input type="password" name="confirm_pwd"></label>
+			<label>Date of birth : <input type="date" name="bday"></label>
+			<input id="button" type="submit" name="submit" value="Register">
+		</form>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
